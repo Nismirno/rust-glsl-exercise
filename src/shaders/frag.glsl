@@ -284,10 +284,10 @@ void main() {
   vec4 color = vec4(vec3(0.0), 1.0);
   st = ratio(st, u_resolution);
 
-  vec2 p = st + vec2(0.1, 0.1);
+  vec2 p = st + vec2(0.2, 0.2);
 
   float sdf = 0.0;
-  sdf = rectSDF(st, vec2(0.1));
+  sdf = rectSDF(p, vec2(0.1));
   color.rgb = vec3(fill(sdf, 1.0));
 
   gl_FragColor = color;

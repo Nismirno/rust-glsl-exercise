@@ -76,14 +76,14 @@ float doubleCubicSeat (float x, float a, float b){
   float max_param_a = 1.0 - epsilon;
   float min_param_b = 0.0;
   float max_param_b = 1.0;
-  a = min(max_param_a, max(min_param_a, a));  
-  b = min(max_param_b, max(min_param_b, b)); 
+  a = min(max_param_a, max(min_param_a, a));
+  b = min(max_param_b, max(min_param_b, b));
 
-  float y = 0;
+  float y = 0.0;
   if (x <= a){
-    y = b - b*pow(1-x/a, 3.0);
+    y = b - b*pow(1.0-x/a, 3.0);
   } else {
-    y = b + (1-b)*pow((x-a)/(1-a), 3.0);
+    y = b + (1.0-b)*pow((x-a)/(1.0-a), 3.0);
   }
   return y;
 }
@@ -97,7 +97,7 @@ float easeInOutCubic(float x) {
 }
 
 float easeInOutSine(float x) {
-  return -(cos(PI * x) - 1) / 2;
+  return -(cos(PI * x) - 1.0) / 2.0;
 }
 
 vec3 rf_flag_amim(float t, vec2 st) {
@@ -259,7 +259,7 @@ vec3 rectangle_border(vec2 st, float border_start, float width) {
   float top_end = step(border_end, 1.0 - st.y);
   top += top_end;
 
-  color = 1 - vec3(left * right * bottom * top);
+  color = 1.0 - vec3(left * right * bottom * top);
   color = color + vec3(left_end * right_end * bottom_end * top_end);
 
   return color;
@@ -271,13 +271,10 @@ float rectSDF(vec2 p, vec2 b, float r) {
 }
 
 float rectSDF(vec2 st, vec2 s) {
-  st = st * 2.0 - 1;
-  //float x_d = abs(st.x / s.x);
-  //float y_d = abs(st.y / s.y);
-  //float sdf = max(x_d, y_d);
-
-  vec2 d = abs(st) - s;
-  float sdf = length(max(d, 0.0)) + min(max(d.x, d.y), 0.0);
+  st = st * 2.0 - 1.0;
+  float x_d = abs(st.x / s.x);
+  float y_d = abs(st.y / s.y);
+  float sdf = max(x_d, y_d);
 
   return sdf;
 }
@@ -290,8 +287,8 @@ void main() {
   vec2 p = st + vec2(0.1, 0.1);
 
   float sdf = 0.0;
-  sdf = rectSDF(st, vec2(0.5));
-  color.rgb = vec3(step(0.1, sdf));
+  sdf = rectSDF(st, vec2(0.1));
+  color.rgb = vec3(fill(sdf, 1.0));
 
   gl_FragColor = color;
 }
